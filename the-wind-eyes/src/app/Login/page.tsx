@@ -13,27 +13,25 @@ export default function Login() {
   const [senha, setSenha] = useState('');
   const [error, setError] = useState('');
 
-  // Definir o CEP da Avenida Paulista (FIAP Paulista)
-  const avenidaPaulistaCep = '01311-000'; // Exemplo de CEP
 
+  const avenidaPaulistaCep = '01311-000'; 
   const handleLogin = async () => {
-    // Verificando se o email e senha são válidos
+  
     if (email === 'exemplo@fiap.com' && senha === 'senha123') {
       try {
-        // Criar o objeto para enviar ao AuthContext com os mesmos atributos
         const user = {
-          nome: 'Exemplo',         // Nome de exemplo
-          cep: avenidaPaulistaCep, // CEP da Avenida Paulista
-          sobrenome: 'Usuário',    // Sobrenome de exemplo
-          email,                   // Email fornecido pelo usuário
-          dataDeNascimento: '2000-01-01', // Data de nascimento de exemplo
-          senha,                   // Senha fornecida pelo usuário
+          nome: 'Exemplo',        
+          cep: avenidaPaulistaCep, 
+          sobrenome: 'Usuário',   
+          email,                   
+          dataDeNascimento: '2000-01-01', 
+          senha,                  
         };
 
-        // Usando o login do contexto e passando o objeto de exemplo
+       
         login(user);
-        setError(''); // Limpando qualquer erro anterior
-        router.push('/home');  // Redireciona após o login bem-sucedido
+        setError('');
+        router.push('/home');
       } catch (error) {
         console.error('Login failed:', error);
         setError('Erro ao tentar fazer login');
@@ -69,7 +67,7 @@ export default function Login() {
               backgroundColor="#51E54F"
               width="10rem"
               height="3rem"
-              onClick={() => handleLogin()}  // Chama handleLogin ao clicar
+              onClick={() => handleLogin()} 
             />
             {error && <p style={{ color: 'red' }}>{error}</p>}
             <span className={styles.span}>OU</span>
