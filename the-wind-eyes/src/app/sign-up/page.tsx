@@ -75,6 +75,7 @@ export default function SignUp() {
             'Content-Type': 'application/json',
             'Origin': 'http://localhost:3000',
           },
+         body: JSON.stringify(user),
         }
       );
       console.log('Usuário cadastrado com sucesso:', response.data);
