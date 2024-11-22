@@ -10,13 +10,13 @@ export default function SignUp() {
   const router = useRouter();
 
   const [birthdayDate, setBirthdayDate] = useState("");
-  const [cep, setCep] = useState("");
+  const [usuarioCep, setCep] = useState("");
   const [signUpEmail, setSignUpEmail] = useState("");
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
   const [senha, setSenha] = useState("");
 
-  // Função de validação dos campos
+
   const validateFields = async () => {
     if (!nome.trim()) {
       alert("Por favor, preencha o nome.");
@@ -34,9 +34,8 @@ export default function SignUp() {
     }
 
 
-    // Validação do CEP (com ou sem traço)
     const cepRegex = /^\d{5}-?\d{3}$/;
-    if (!cep.trim() || !cepRegex.test(cep)) {
+    if (!usuarioCep.trim() || !cepRegex.test(usuarioCep)) {
       alert("Por favor, preencha o CEP corretamente (com ou sem traço).");
       return false;
     }
@@ -58,21 +57,30 @@ export default function SignUp() {
     const user = {
       nome,
       sobrenome,
-      email: signUpEmail,
-      dataDeNascimento: birthdayDate,
-      cep,
+      usuarioEmail: signUpEmail,
+      dataNascimento: birthdayDate,
+      usuarioCep,
       senha,
     };
+
+    console.log(typeof user);
+    console.log(user)
     
     try {
-      const response = await axios.post('http://localhost:8080/usuario', user);
+      const response = await axios.post(
+        'http://localhost:8080/usuario',
+        user,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
       console.log('Usuário cadastrado com sucesso:', response.data);
-      alert('Usuário cadastrado com sucesso!');
-      router.push('/home');
     } catch (error) {
-      console.error('Erro ao cadastrar usuário:', error);
-      alert('Ocorreu um erro ao cadastrar o usuário. Tente novamente.');
+      console.error('Erro ao cadastrar usuário:', error.response || error);
     }
+    
   };
 
   return (
@@ -110,7 +118,7 @@ export default function SignUp() {
             type="text"
             placeholder="CEP"
             onChange={(e) => setCep(e.target.value)}
-            value={cep}
+            value={usuarioCep}
           />
           <Input
             type="password"
