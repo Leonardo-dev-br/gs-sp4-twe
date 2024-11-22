@@ -3,22 +3,22 @@ import styles from "./page.module.css";
 import Image from "next/image";
 import userIcon from "../assets/userIcon.png";
 import { useEffect, useState } from "react";
-import { useAuth } from "../../../Context/AuthContext"; // Importando o AuthContext
+import { useAuth } from "../../../Context/AuthContext"; 
 import { ContentParagraph } from "../components/ContentParagraph/ContentParagraph";
 
-// Definindo o tipo para o CEP
+
 type CepType = {
   neighborhood: string;
 };
 
 export default function Profile() {
-  const { user } = useAuth(); // Pegando os dados do usuário do AuthContext
+  const { user } = useAuth();
   const [cep, setCep] = useState<CepType | null>(null);
 
   useEffect(() => {
     const searchCep = async () => {
       try {
-        if (user?.cep) { // Verificando se o usuário tem o cep
+        if (user?.cep) {
           const response = await fetch(
             `https://brasilapi.com.br/api/cep/v2/${user.cep}`
           );
@@ -30,11 +30,10 @@ export default function Profile() {
       }
     };
 
-    // Executa a busca do CEP apenas uma vez
     if (user?.cep) {
       searchCep();
     }
-  }, [user?.cep]); // Recarrega a busca de CEP se o CEP do usuário mudar
+  }, [user?.cep]); 
 
   return (
     <main className={styles.main}>

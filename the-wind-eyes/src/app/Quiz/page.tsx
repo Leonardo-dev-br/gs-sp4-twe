@@ -105,12 +105,11 @@ export default function Quiz() {
 
   useEffect(() => {
     console.log("Pergunta atual:", currentQuestionIndex);
-  }, [currentQuestionIndex]); // Monitorando atualizações do estado de perguntas
+  }, [currentQuestionIndex]);
 
   const handleAnswer = (index: number) => {
     console.log("Resposta selecionada:", index);
 
-    // Atualiza a pontuação se a resposta for correta
     if (index === quizData[currentQuestionIndex].correct) {
       setScore((prevScore) => prevScore + 1);
       console.log("Resposta correta! Nova pontuação:", score + 1);
